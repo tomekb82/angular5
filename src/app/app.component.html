@@ -7,15 +7,21 @@
   <div class="row">
     <div class="col">
 
-      <input (keyup)=" message = $event.target.value ">
+      <input #InputRef (keyup)=" message = $event.target.value ">
       <button (click)="open = !open">Toggle</button>
+      <button (click)="focus(InputRef)">Focus</button>
+      <button (click)="cardRef.open()">Open</button>
+      <button (click)="cardRef.close()">Close</button>
+
       <hr>
-      <basic-card
+      Basic card component:
+      <basic-card #cardRef
         [(open)]="open"
         [text]="message">
       </basic-card>
 
       <hr>
+      Status card component:
       <status-card text="Default message"></status-card>
       <status-card type="error" text="Error occured"></status-card>
       <status-card type="info" text="Simple message"></status-card>

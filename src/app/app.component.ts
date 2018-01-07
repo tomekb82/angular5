@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
   open = true;
+
+  focus(element) {
+    if  (element.className) {
+      element.className = '';
+    }else {
+      element.className = 'input-border';
+    }
+  }
+
 }
