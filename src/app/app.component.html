@@ -8,10 +8,10 @@
     <div class="col">
 
       <input #InputRef (keyup)=" message = $event.target.value ">
-      <button (click)="open = !open">Toggle</button>
+      <button (click)="open = !open;openMessage = !openMessage ">Toggle</button>
       <button (click)="focus(InputRef)">Focus</button>
-      <button (click)="cardRef.open()">Open</button>
-      <button (click)="cardRef.close()">Close</button>
+      <button (click)="cardRef.open();messageRef.open() ">Open</button>
+      <button (click)="cardRef.close();messageRef.close()">Close</button>
 
       <hr>
       Basic card component:
@@ -19,6 +19,13 @@
         [(open)]="open"
         [text]="message">
       </basic-card>
+
+      <hr>
+      Message card component:
+      <message-card #messageRef
+                  [(open)]="openMessage"
+                  [text]="message">
+      </message-card>
 
       <hr>
       Status card component:

@@ -18,7 +18,7 @@ export class BasicCardComponent implements OnInit {
   isOpen = false;
 
   @Input()
-  text = '';
+  text = ' ';
 
   @Output()
   openChange = new EventEmitter();
@@ -29,8 +29,8 @@ export class BasicCardComponent implements OnInit {
   }
 
   open(){
-    this.isOpen = true
-    this.openChange.emit(this.isOpen)
+    this.isOpen = true;
+    this.openChange.emit(this.isOpen);
   }
 
   constructor() { }
