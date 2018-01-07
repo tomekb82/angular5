@@ -7,6 +7,15 @@
   <div class="row">
     <div class="col">
 
+      <input (keyup)=" message = $event.target.value ">
+      <button (click)="open = !open">Toggle</button>
+      <hr>
+      <basic-card
+        [(open)]="open"
+        [text]="message">
+      </basic-card>
+
+      <hr>
       <status-card text="Default message"></status-card>
       <status-card type="error" text="Error occured"></status-card>
       <status-card type="info" text="Simple message"></status-card>
