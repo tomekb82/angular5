@@ -12,9 +12,7 @@ import { Component, OnInit, Attribute } from '@angular/core';
         {{ bodyText }}
       </div>
     </div>
-  \`,
   `,
-
   styles: []
 })
 export class StatusCardComponent implements OnInit {

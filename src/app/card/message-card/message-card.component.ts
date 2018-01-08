@@ -6,7 +6,9 @@ import {BasicCardComponent} from '../basic-card/basic-card.component';
   template: `
    <div class="alert alert-primary" *ngIf="isOpen">
       <card-close></card-close>
-     {{ text }}
+      <card-close></card-close>
+      <card-close></card-close>
+      {{ text }}
     </div>
   `,
   styles: []

@@ -1,3 +1,4 @@
+import { flatMap, switchMap } from 'rxjs/operators'
 import {
   AfterViewChecked,
   AfterViewInit,
@@ -7,9 +8,10 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
-
 import { CardCloseComponent } from '../card-close/card-close.component';
 
 @Component({
@@ -24,26 +26,26 @@ import { CardCloseComponent } from '../card-close/card-close.component';
   `,
   styles: []
 })
-export class BasicCardComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class BasicCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild(CardCloseComponent)
-  closeRef:CardCloseComponent;
+  @ViewChildren(CardCloseComponent)
+  closeRefs = new QueryList<CardCloseComponent>();
 
   subscription;
 
-  ngAfterViewChecked() {
-    if(this.closeRef){
-      this.subscription = this.closeRef.onClose
-        .subscribe(()=>{
-          this.close()
-        })
-    }else{
-      this.subscription && this.subscription.unsubscribe()
-    }
+  ngAfterViewInit() {
+    this.subscription = this.closeRefs.changes.pipe(
+      flatMap( changes => <CardCloseComponent[]>changes.toArray()),
+      //switchMap( button => button.onClose )
+      flatMap( button => button.onClose )
+    )
+      .subscribe(() => {
+        this.close();
+      })
   }
 
   ngOnDestroy(){
-    this.subscription && this.subscription.unsubscribe()
+    this.subscription && this.subscription.unsubscribe();
   }
 
   @Input('open')
