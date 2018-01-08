@@ -1,20 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CardModule } from './card/card.module';
 
 import { AppComponent } from './app.component';
-import { StatusCardComponent } from './status-card/status-card.component';
-import { BasicCardComponent } from './basic-card/basic-card.component';
-import { MessageCardComponent } from './message-card/message-card.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    StatusCardComponent,
-    BasicCardComponent,
-    MessageCardComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,7 +5,7 @@ import {BasicCardComponent} from '../basic-card/basic-card.component';
   selector: 'message-card',
   template: `
    <div class="alert alert-primary" *ngIf="isOpen">
-      <span class="close" (click)="close()">&times;</span>
+      <card-close></card-close>
      {{ text }}
     </div>
   `,
