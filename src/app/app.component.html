@@ -8,10 +8,21 @@
     <div class="col">
 
       <input #InputRef (keyup)=" message = $event.target.value ">
-      <button (click)="open = !open;openMessage = !openMessage ">Toggle</button>
+      <button (click)="open = !open;openMessage = !openMessage">Toggle</button>
       <button (click)="focus(InputRef)">Focus</button>
       <button (click)="cardRef.open();messageRef.open() ">Open</button>
       <button (click)="cardRef.close();messageRef.close()">Close</button>
+
+      <hr>
+      <panel>
+        <h4 ngProjectAs="panel-header">Panel headder</h4>
+        <div ngProjectAs="panel-footer">Panel footer</div>
+
+        <ul>
+          <li *ngFor="let i of [1,2,3,4,5]">Test {{i}}</li>
+        </ul>
+
+      </panel>
 
       <hr>
       Basic card component:

@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CardModule } from './card/card.module';
+import { PanelModule } from './panel/panel.module';
 
 import { AppComponent } from './app.component';
-
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    CardModule
+    CardModule,
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
