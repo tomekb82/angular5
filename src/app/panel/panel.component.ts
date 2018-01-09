@@ -1,6 +1,7 @@
 import { flatMap } from 'rxjs/operators';
 import {
   Component,
+  Input,
   AfterViewInit,
   ViewChildren,
   QueryList,
@@ -33,13 +34,13 @@ export class PanelComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren(PanelCloseComponent)
   closeRefs = new QueryList<PanelCloseComponent>();
 
-  isOpen = true;
+  isOpen = false;
 
   subscription;
 
   ngAfterViewInit() {
-    this.closeRefs.changes.subscribe(changes => {
-      console.log(changes);
+    setTimeout(() => {
+      this.isOpen = true;
     });
     this.subscription = this.closeRefs.changes.pipe(
       flatMap( changes => <PanelCloseComponent[]>changes.toArray()),
@@ -58,6 +59,12 @@ export class PanelComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log("clos panel");
     this.isOpen = false;
   }
+
+  @Input()
+  title;
+
+  @Input()
+  open = true;
 
   constructor() { }
 

@@ -34,6 +34,9 @@ export class BasicCardComponent implements OnInit, AfterViewInit, OnDestroy {
   subscription;
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.isOpen = true;
+    });
     this.subscription = this.closeRefs.changes.pipe(
       flatMap( changes => <CardCloseComponent[]>changes.toArray()),
       //switchMap( button => button.onClose )

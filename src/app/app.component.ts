@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   message = 'Sample message';
-  open = true;
-  openMessage = true;
+  open = false;
+  openMessage = false;
 
   focus(element) {
     if  (element.className) {
