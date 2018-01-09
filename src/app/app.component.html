@@ -15,13 +15,26 @@
 
       <hr>
       <panel>
-        <h4 ngProjectAs="panel-header">Panel headder</h4>
+        <h4 ngProjectAs="panel-header">
+          <panel-close></panel-close>
+          Panel headder
+        </h4>
         <div ngProjectAs="panel-footer">Panel footer</div>
 
         <ul>
           <li *ngFor="let i of [1,2,3,4,5]">Test {{i}}</li>
         </ul>
 
+      </panel>
+      <hr>
+      <panel>
+
+        <h5 ngProjectAs="panel-header">
+          Komunikaty
+        </h5>
+        <p class="alert bg-warning">
+          Powiadomienie w panelu!
+        </p>
       </panel>
 
       <hr>

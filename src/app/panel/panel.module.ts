@@ -13,7 +13,8 @@ import { PanelCloseComponent } from './panel-close.component';
     CommonModule
   ],
   exports: [
-    PanelComponent
+    PanelComponent,
+    PanelCloseComponent
   ]
 })
 export class PanelModule { }
