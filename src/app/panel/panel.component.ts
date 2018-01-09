@@ -7,15 +7,14 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-
-import { CardCloseComponent } from '../card/card-close/card-close.component';
+import {PanelCloseComponent} from './panel-close.component';
 
 @Component({
   selector: 'panel',
   template: `
     <div class="card" *ngIf="isOpen">
       <div class="card-header">
-        <card-close></card-close>
+        <panel-close></panel-close>
         <h5 *ngIf="title">{{title}}</h5>
         <ng-content select="panel-header"></ng-content>
       </div>
@@ -31,16 +30,19 @@ import { CardCloseComponent } from '../card/card-close/card-close.component';
 })
 export class PanelComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChildren(CardCloseComponent)
-  closeRefs = new QueryList<CardCloseComponent>();
+  @ViewChildren(PanelCloseComponent)
+  closeRefs = new QueryList<PanelCloseComponent>();
 
   isOpen = true;
 
   subscription;
 
   ngAfterViewInit() {
+    this.closeRefs.changes.subscribe(changes => {
+      console.log(changes);
+    });
     this.subscription = this.closeRefs.changes.pipe(
-      flatMap( changes => <CardCloseComponent[]>changes.toArray()),
+      flatMap( changes => <PanelCloseComponent[]>changes.toArray()),
       flatMap( button => button.onClose )
     )
       .subscribe(() => {

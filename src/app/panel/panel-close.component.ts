@@ -1,13 +1,13 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'card-close',
+  selector: 'panel-close',
   template: `
     <span class="close" (click)="close()">&times;</span>
   `,
   styles: []
 })
-export class CardCloseComponent implements OnInit {
+export class PanelCloseComponent implements OnInit {
 
   @Output('close')
   onClose = new EventEmitter();

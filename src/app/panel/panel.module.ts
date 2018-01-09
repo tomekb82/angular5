@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardModule } from '../card/card.module';
 import { PanelComponent } from './panel.component';
+import { PanelCloseComponent } from './panel-close.component';
 
 
 @NgModule({
   declarations: [
-    PanelComponent
+    PanelComponent,
+    PanelCloseComponent
   ],
   imports: [
-    CommonModule,
-    CardModule
+    CommonModule
   ],
   exports: [
     PanelComponent
