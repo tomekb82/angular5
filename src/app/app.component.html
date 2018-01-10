@@ -14,12 +14,22 @@
       <button (click)="cardRef.close();messageRef.close()">Close</button>
 
       <hr>
-      <panel>
+      Choose panel type:
+       <button (click)="panelType='single'">Single</button>
+      <button (click)="panelType='toggle'">Toggle</button>
+      <panel [type]="panelType">
         <h4 ngProjectAs="panel-header">
           <panel-close></panel-close>
           Cards components <small>({{list.length}} types)</small>
         </h4>
             
+        Choose nav type:    
+      <select (change)="onSelect($event.target.value)">
+          <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+        </select>
+       
+        <panel-nav [type]="selectedType.class"></panel-nav>
+        <br>
         <panel-tab [title]="list[0]">    
             <panel-close></panel-close>  
             Basic card component:

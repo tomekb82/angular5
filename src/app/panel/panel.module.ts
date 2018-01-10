@@ -4,13 +4,15 @@ import { PanelComponent } from './panel.component';
 import { PanelCloseComponent } from './panel-close.component';
 import { PanelTabComponent } from './panel-tab.component';
 import { PanelBaseComponent } from './panel-base.component';
+import { PanelNavComponent } from './panel-nav.component';
 
 @NgModule({
   declarations: [
     PanelComponent,
     PanelCloseComponent,
     PanelTabComponent,
-    PanelBaseComponent
+    PanelBaseComponent,
+    PanelNavComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { PanelBaseComponent } from './panel-base.component';
   exports: [
     PanelComponent,
     PanelCloseComponent,
-    PanelTabComponent
+    PanelTabComponent,
+    PanelNavComponent
   ]
 })
 export class PanelModule { }

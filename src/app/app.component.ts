@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   message = 'Sample message';
   open = false;
   openMessage = false;
-  list = ['Basic','Message','Status']
+  navType = 'tabs';
+  list = ['Basic','Message','Status'];
+  
+  panelType='single';
 
   focus(element) {
     if  (element.className) {
@@ -18,5 +21,26 @@ export class AppComponent {
       element.className = 'input-border';
     }
   }
+  
+ public types: NavType[] = [
+      { "id": 1, "name": "Tabs", "class": "tabs" },
+      { "id": 2, "name": "Buttons", "class": "pills" }
+    ];
+    public selectedType: NavType = this.types[0];
+    onSelect(typeId) { 
+        this.selectedType = null;
+        for (var i = 0; i < this.types.length; i++)
+        {
+          if (this.types[i].id == typeId) {
+            this.selectedType = this.types[i];
+          }
+        }
+    }
 
 }
+
+class NavType {
+  id: number;
+  name: string;
+}
+

@@ -3,11 +3,13 @@ import {
   Component,
   Input,
   AfterContentInit,
+  ContentChild,
   ContentChildren,
   QueryList
 } from '@angular/core';
 import { PanelTabComponent } from './panel-tab.component'
 import { PanelBaseComponent } from './panel-base.component';
+import { PanelNavComponent } from './panel-nav.component';
 
 @Component({
   selector: 'panel',
@@ -17,17 +19,7 @@ import { PanelBaseComponent } from './panel-base.component';
         <h5 *ngIf="title">{{title}}</h5>
         <ng-content select="panel-header"></ng-content>
       </div>
-      
-      <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let panel of panels">
-            <a class="nav-link"
-                [class.active]="panel.open"
-                (click)="openTabPanel(panel)"> 
-                {{panel.title}} 
-            </a>
-        </li>
-      </ul>
-      
+        
       <div class="card-body">
         <ng-content></ng-content>
       </div>
@@ -40,10 +32,23 @@ import { PanelBaseComponent } from './panel-base.component';
 })
 export class PanelComponent extends PanelBaseComponent implements AfterContentInit {
 
+  @Input()
+  type = 'single';
+  
+  @ContentChild(PanelNavComponent)
+  nav:PanelNavComponent;
+  
   @ContentChildren(PanelTabComponent)
   panels = new QueryList<PanelTabComponent>()
   
   ngAfterContentInit() {
+    if(this.nav){
+      this.nav.panels = this.panels
+      this.nav.onOpen.subscribe(panel => {
+        this.openTabPanel(panel);
+      })
+    }
+    
     setTimeout(()=>{
       if(this.panels.length){
         this.openTabPanel(this.panels.first)
@@ -53,10 +58,15 @@ export class PanelComponent extends PanelBaseComponent implements AfterContentIn
   }
 
   openTabPanel(panel){
+  if(this.type=='single'){
     this.panels.toArray().forEach(panel=>{
       panel.open = false
     })
-    panel.open = true
+    panel.open = true;
+    }
+    else{
+      panel.open = !panel.open;
+    }
   }
 
 }
