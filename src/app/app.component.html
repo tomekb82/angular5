@@ -17,46 +17,47 @@
       <panel>
         <h4 ngProjectAs="panel-header">
           <panel-close></panel-close>
-          Panel headder
+          Cards components <small>({{list.length}} types)</small>
         </h4>
-        <div ngProjectAs="panel-footer">Panel footer</div>
-
-        <ul>
-          <li *ngFor="let i of [1,2,3,4,5]">Test {{i}}</li>
-        </ul>
-
-      </panel>
-      <hr>
-      <panel>
-
-        <h5 ngProjectAs="panel-header">
-          Komunikaty
-        </h5>
-        <p class="alert bg-warning">
-          Powiadomienie w panelu!
-        </p>
-      </panel>
-
-      <hr>
-      Basic card component:
-      <basic-card #cardRef
-        [(open)]="open"
-        [text]="message">
-      </basic-card>
-
-      <hr>
-      Message card component:
-      <message-card #messageRef
+            
+        <panel-tab [title]="list[0]">    
+            <panel-close></panel-close>  
+            Basic card component:
+            <basic-card #cardRef
+                [(open)]="open"
+                [text]="message">
+            </basic-card>
+        </panel-tab>   
+        <panel-tab [title]="list[1]">    
+            <panel-close></panel-close>  
+            Message card component:
+              <message-card #messageRef
                   [(open)]="openMessage"
                   [text]="message">
-      </message-card>
-
+              </message-card>
+        </panel-tab>  
+        <panel-tab [title]="list[2]">    
+            <panel-close></panel-close>  
+            Status card component:
+          <status-card text="Default message"></status-card>
+          <status-card type="error" text="Error occured"></status-card>
+          <status-card type="info" text="Simple message"></status-card>
+          <status-card type="success" text="Operation success"></status-card>
+        </panel-tab>  
+          
+        <div ngProjectAs="panel-footer">Panel footer</div>
+      </panel>
+      
       <hr>
-      Status card component:
-      <status-card text="Default message"></status-card>
-      <status-card type="error" text="Error occured"></status-card>
-      <status-card type="info" text="Simple message"></status-card>
-      <status-card type="success" text="Operation success"></status-card>
+      
+      <panel>
+        <h5 ngProjectAs="panel-header">
+          Messages
+        </h5>
+        <p class="alert bg-warning">
+          Some info...
+        </p>
+      </panel>
 
     </div>
   </div>

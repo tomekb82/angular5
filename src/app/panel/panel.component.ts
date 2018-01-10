@@ -3,11 +3,11 @@ import {
   Component,
   Input,
   AfterContentInit,
-  ContentChild,
-  OnInit,
-  OnDestroy
+  ContentChildren,
+  QueryList
 } from '@angular/core';
-import {PanelCloseComponent} from './panel-close.component';
+import { PanelTabComponent } from './panel-tab.component'
+import { PanelBaseComponent } from './panel-base.component';
 
 @Component({
   selector: 'panel',
@@ -17,6 +17,17 @@ import {PanelCloseComponent} from './panel-close.component';
         <h5 *ngIf="title">{{title}}</h5>
         <ng-content select="panel-header"></ng-content>
       </div>
+      
+      <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let panel of panels">
+            <a class="nav-link"
+                [class.active]="panel.open"
+                (click)="openTabPanel(panel)"> 
+                {{panel.title}} 
+            </a>
+        </li>
+      </ul>
+      
       <div class="card-body">
         <ng-content></ng-content>
       </div>
@@ -27,34 +38,25 @@ import {PanelCloseComponent} from './panel-close.component';
   `,
   styles: []
 })
-export class PanelComponent implements OnInit, AfterContentInit, OnDestroy {
+export class PanelComponent extends PanelBaseComponent implements AfterContentInit {
 
-  @Input()
-  title;
-
-  @Input()
-  open = true;
-
-  @ContentChild(PanelCloseComponent)
-  closeBtn:PanelCloseComponent;
-
-  subscription;
-
+  @ContentChildren(PanelTabComponent)
+  panels = new QueryList<PanelTabComponent>()
+  
   ngAfterContentInit() {
-    if(this.closeBtn){
-      this.subscription = this.closeBtn.onClose.subscribe(()=>{
-        this.open = false;
-      })
-    }
+    setTimeout(()=>{
+      if(this.panels.length){
+        this.openTabPanel(this.panels.first)
+      }
+    })
+    super.ngAfterContentInit()
   }
 
-  ngOnDestroy(){
-    this.subscription && this.subscription.unsubscribe();
-  }
-
-  constructor() { }
-
-  ngOnInit() {
+  openTabPanel(panel){
+    this.panels.toArray().forEach(panel=>{
+      panel.open = false
+    })
+    panel.open = true
   }
 
 }

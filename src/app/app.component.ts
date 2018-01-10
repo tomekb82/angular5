@@ -9,6 +9,7 @@ export class AppComponent {
   message = 'Sample message';
   open = false;
   openMessage = false;
+  list = ['Basic','Message','Status']
 
   focus(element) {
     if  (element.className) {
