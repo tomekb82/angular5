@@ -1,4 +1,3 @@
-import { flatMap } from 'rxjs/operators';
 import {
   Component,
   Input,
@@ -7,9 +6,9 @@ import {
   ContentChildren,
   QueryList
 } from '@angular/core';
-import { PanelTabComponent } from './panel-tab.component'
-import { PanelBaseComponent } from './panel-base.component';
-import { PanelNavComponent } from './panel-nav.component';
+import {PanelTabComponent} from './panel-tab.component';
+import {PanelBaseComponent} from './panel-base.component';
+import {PanelNavComponent} from './panel-nav.component';
 
 @Component({
   selector: 'panel',
@@ -33,40 +32,51 @@ import { PanelNavComponent } from './panel-nav.component';
 export class PanelComponent extends PanelBaseComponent implements AfterContentInit {
 
   @Input()
-  type = 'single';
-  
+  type;
+
   @ContentChild(PanelNavComponent)
-  nav:PanelNavComponent;
-  
+  nav: PanelNavComponent;
+
   @ContentChildren(PanelTabComponent)
-  panels = new QueryList<PanelTabComponent>()
-  
+  panels = new QueryList<PanelTabComponent>();
+
   ngAfterContentInit() {
-    if(this.nav){
-      this.nav.panels = this.panels
-      this.nav.onOpen.subscribe(panel => {
-        this.openTabPanel(panel);
-      })
-    }
-    
-    setTimeout(()=>{
-      if(this.panels.length){
-        this.openTabPanel(this.panels.first)
-      }
-    })
-    super.ngAfterContentInit()
+    this.subscribeNavPanel();
+    this.setFirstPanelActive();
+    super.ngAfterContentInit();
   }
 
-  openTabPanel(panel){
-  if(this.type=='single'){
-    this.panels.toArray().forEach(panel=>{
-      panel.open = false
-    })
+  subscribeNavPanel() {
+    if (this.nav) {
+      this.nav.panels = this.panels;
+      this.nav.onOpen.subscribe(panel => {
+        this.openTabPanel(panel);
+      });
+    }
+  }
+
+  setFirstPanelActive() {
+    setTimeout(() => {
+      if (this.panels.length) {
+        this.openTabPanel(this.panels.first);
+      }
+    });
+  }
+
+  openTabPanel(panel) {
+    this.type === 'inline' ? this.openInlineTabPanel(panel) : this.openDefaultTabPanel(panel);
+  }
+
+  openDefaultTabPanel(panel) {
+    this.panels.toArray().forEach(panel => {
+      panel.open = false;
+    });
     panel.open = true;
-    }
-    else{
-      panel.open = !panel.open;
-    }
+  }
+
+  openInlineTabPanel(panel){
+    debugger;
+    panel.open = !panel.open;
   }
 
 }

@@ -1,46 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import {Component,} from '@angular/core';
+
+class PanelType {
+  id: number;
+  name: string;
+}
+
+class NavType {
+  id: number;
+  name: string;
+  class: string;
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   message = 'Sample message';
   open = false;
   openMessage = false;
-  navType = 'tabs';
-  list = ['Basic','Message','Status'];
-  
-  panelType='single';
+  list = ['Basic', 'Message', 'Status'];
+
+  panelTypes: PanelType[] = [
+    {'id': 1, 'name': 'default'},
+    {'id': 2, 'name': 'inline'}
+  ];
+  selectedPanelType: PanelType = this.panelTypes[0];
+
+  navTypes: NavType[] = [
+    {'id': 1, 'name': 'Tabs', 'class': 'tabs'},
+    {'id': 2, 'name': 'Buttons', 'class': 'pills'}
+  ];
+  selectedNavType: NavType = this.navTypes[0];
 
   focus(element) {
-    if  (element.className) {
+    if (element.className) {
       element.className = '';
-    }else {
+    } else {
       element.className = 'input-border';
     }
   }
-  
- public types: NavType[] = [
-      { "id": 1, "name": "Tabs", "class": "tabs" },
-      { "id": 2, "name": "Buttons", "class": "pills" }
-    ];
-    public selectedType: NavType = this.types[0];
-    onSelect(typeId) { 
-        this.selectedType = null;
-        for (var i = 0; i < this.types.length; i++)
-        {
-          if (this.types[i].id == typeId) {
-            this.selectedType = this.types[i];
-          }
-        }
+
+  onPanelTypeSelect(typeId) {
+    this.selectedPanelType = null;
+    for (let i = 0; i < this.panelTypes.length; i++) {
+      if (this.panelTypes[i].id == typeId) {
+        this.selectedPanelType = this.panelTypes[i];
+      }
     }
+  }
+
+  onNavTypeSelect(typeId) {
+    this.selectedNavType = null;
+    for (let i = 0; i < this.navTypes.length; i++) {
+      if (this.navTypes[i].id == typeId) {
+        this.selectedNavType = this.navTypes[i];
+      }
+    }
+  }
 
 }
 
-class NavType {
-  id: number;
-  name: string;
-}
 

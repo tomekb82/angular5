@@ -14,52 +14,59 @@
       <button (click)="cardRef.close();messageRef.close()">Close</button>
 
       <hr>
+
       Choose panel type:
-       <button (click)="panelType='single'">Single</button>
-      <button (click)="panelType='toggle'">Toggle</button>
-      <panel [type]="panelType">
+      <select (change)="onPanelTypeSelect($event.target.value)">
+        <option *ngFor="let type of panelTypes" [value]="type.id">{{type.name}}</option>
+      </select>
+      <br>
+      Choose nav type:
+      <select (change)="onNavTypeSelect($event.target.value)">
+        <option *ngFor="let type of navTypes" [value]="type.id">{{type.name}}</option>
+      </select>
+
+      <panel [type]="selectedPanelType.name">
         <h4 ngProjectAs="panel-header">
           <panel-close></panel-close>
-          Cards components <small>({{list.length}} types)</small>
+          Cards components
+          <small>({{list.length}} types)</small>
         </h4>
-            
-        Choose nav type:    
-      <select (change)="onSelect($event.target.value)">
-          <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
-        </select>
-       
-        <panel-nav [type]="selectedType.class"></panel-nav>
+
+        <panel-nav [type]="selectedNavType.class"></panel-nav>
         <br>
-        <panel-tab [title]="list[0]">    
-            <panel-close></panel-close>  
-            Basic card component:
-            <basic-card #cardRef
-                [(open)]="open"
-                [text]="message">
-            </basic-card>
-        </panel-tab>   
-        <panel-tab [title]="list[1]">    
-            <panel-close></panel-close>  
-            Message card component:
-              <message-card #messageRef
-                  [(open)]="openMessage"
-                  [text]="message">
-              </message-card>
-        </panel-tab>  
-        <panel-tab [title]="list[2]">    
-            <panel-close></panel-close>  
-            Status card component:
+
+        <panel-tab [title]="list[0]">
+          <panel-close></panel-close>
+          Basic card component:
+          <basic-card #cardRef
+                      [(open)]="open"
+                      [text]="message">
+          </basic-card>
+        </panel-tab>
+
+        <panel-tab [title]="list[1]">
+          <panel-close></panel-close>
+          Message card component:
+          <message-card #messageRef
+                        [(open)]="openMessage"
+                        [text]="message">
+          </message-card>
+        </panel-tab>
+
+        <panel-tab [title]="list[2]">
+          <panel-close></panel-close>
+          Status card component:
           <status-card text="Default message"></status-card>
           <status-card type="error" text="Error occured"></status-card>
           <status-card type="info" text="Simple message"></status-card>
           <status-card type="success" text="Operation success"></status-card>
-        </panel-tab>  
-          
+        </panel-tab>
+
         <div ngProjectAs="panel-footer">Panel footer</div>
       </panel>
-      
+
       <hr>
-      
+
       <panel>
         <h5 ngProjectAs="panel-header">
           Messages
