@@ -1,6 +1,5 @@
-import { flatMap, switchMap } from 'rxjs/operators'
+import { flatMap } from 'rxjs/operators';
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   EventEmitter,
@@ -9,7 +8,6 @@ import {
   OnInit,
   Output,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { CardCloseComponent } from '../card-close/card-close.component';
@@ -28,29 +26,6 @@ import { CardCloseComponent } from '../card-close/card-close.component';
 })
 export class BasicCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChildren(CardCloseComponent)
-  closeRefs = new QueryList<CardCloseComponent>();
-
-  subscription;
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.isOpen = true;
-    });
-    this.subscription = this.closeRefs.changes.pipe(
-      flatMap( changes => <CardCloseComponent[]>changes.toArray()),
-      //switchMap( button => button.onClose )
-      flatMap( button => button.onClose )
-    )
-      .subscribe(() => {
-        this.close();
-      })
-  }
-
-  ngOnDestroy(){
-    this.subscription && this.subscription.unsubscribe();
-  }
-
   @Input('open')
   isOpen = false;
 
@@ -60,19 +35,40 @@ export class BasicCardComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output()
   openChange = new EventEmitter();
 
-  close(){
+  @ViewChildren(CardCloseComponent)
+  closeRefs = new QueryList<CardCloseComponent>();
+
+  subscription;
+
+  constructor() { }
+
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.subscription = this.closeRefs.changes
+      .pipe(
+        flatMap( changes => <CardCloseComponent[]>changes.toArray()),
+        //switchMap( button => button.onClose )
+        flatMap( button => button.onClose ))
+      .subscribe(() => {
+        this.close();
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  close() {
     this.isOpen = false;
     this.openChange.emit(this.isOpen);
   }
 
-  open(){
+  open() {
     this.isOpen = true;
     this.openChange.emit(this.isOpen);
-  }
-
-  constructor() { }
-
-  ngOnInit() {
   }
 
 }

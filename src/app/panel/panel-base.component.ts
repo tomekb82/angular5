@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnInit, OnDestroy } from '@angular/core'
+import { Component, ContentChild, Input, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { PanelCloseComponent } from './panel-close.component';
 
 @Component({
@@ -10,38 +10,39 @@ import { PanelCloseComponent } from './panel-close.component';
   `,
   styles: []
 })
-export class PanelBaseComponent implements OnInit, OnDestroy {
+export class PanelBaseComponent implements OnInit, OnDestroy, AfterContentInit {
 
   @Input()
   title;
-  
+
   @Input()
   open = true;
 
   subscription;
-  
+
   @ContentChild(PanelCloseComponent)
-  closeBtn:PanelCloseComponent;
+  closeBtn: PanelCloseComponent;
+
+  constructor() { }
+
+  ngOnInit() {}
 
   ngAfterContentInit() {
     this.subscribeCloseBtn();
   }
 
   subscribeCloseBtn() {
-    if(this.closeBtn) {
+    if (this.closeBtn) {
       this.subscription = this.closeBtn.onClose.subscribe(() => {
         this.open = false;
-      })
+      });
     }
   }
-  
-  ngOnDestroy() {
-    this.subscription && this.subscription.unsubscribe();
-  }
-  
-  constructor() { }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

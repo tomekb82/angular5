@@ -12,13 +12,12 @@ export class PanelCloseComponent implements OnInit {
   @Output('close')
   onClose = new EventEmitter();
 
-  close(){
-    this.onClose.emit();
-  }
-
   constructor() { }
 
   ngOnInit() {
   }
 
+  close() {
+    this.onClose.emit();
+  }
 }

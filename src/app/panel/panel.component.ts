@@ -68,14 +68,11 @@ export class PanelComponent extends PanelBaseComponent implements AfterContentIn
   }
 
   openDefaultTabPanel(panel) {
-    this.panels.toArray().forEach(panel => {
-      panel.open = false;
-    });
+    this.panels.toArray().forEach(p => p.open = false);
     panel.open = true;
   }
 
-  openInlineTabPanel(panel){
-    debugger;
+  openInlineTabPanel(panel) {
     panel.open = !panel.open;
   }
 

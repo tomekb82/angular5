@@ -15,17 +15,19 @@ import {BasicCardComponent} from '../basic-card/basic-card.component';
 })
 export class MessageCardComponent extends BasicCardComponent implements OnInit {
 
+  timeout = 1000;
+
   constructor() {
     super();
   }
 
-  close(){
-    setTimeout(()=>{
-      super.close()
-    },1000)
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  close() {
+    setTimeout(() => {
+      super.close();
+    }, this.timeout);
   }
 
 }

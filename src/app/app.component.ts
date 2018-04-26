@@ -26,6 +26,7 @@ export class AppComponent {
     {'id': 1, 'name': 'default'},
     {'id': 2, 'name': 'inline'}
   ];
+
   selectedPanelType: PanelType = this.panelTypes[0];
 
   navTypes: NavType[] = [
@@ -35,17 +36,13 @@ export class AppComponent {
   selectedNavType: NavType = this.navTypes[0];
 
   focus(element) {
-    if (element.className) {
-      element.className = '';
-    } else {
-      element.className = 'input-border';
-    }
+    element.className = element.className ? '' : 'input-border';
   }
 
   onPanelTypeSelect(typeId) {
     this.selectedPanelType = null;
     for (let i = 0; i < this.panelTypes.length; i++) {
-      if (this.panelTypes[i].id == typeId) {
+      if (this.panelTypes[i].id === typeId) {
         this.selectedPanelType = this.panelTypes[i];
       }
     }
@@ -54,7 +51,7 @@ export class AppComponent {
   onNavTypeSelect(typeId) {
     this.selectedNavType = null;
     for (let i = 0; i < this.navTypes.length; i++) {
-      if (this.navTypes[i].id == typeId) {
+      if (this.navTypes[i].id === typeId) {
         this.selectedNavType = this.navTypes[i];
       }
     }

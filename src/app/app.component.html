@@ -7,14 +7,15 @@
   <div class="row">
     <div class="col">
 
+      <!-- actions -->
       <input #InputRef (keyup)=" message = $event.target.value ">
       <button (click)="open = !open;openMessage = !openMessage">Toggle</button>
       <button (click)="focus(InputRef)">Focus</button>
       <button (click)="cardRef.open();messageRef.open() ">Open</button>
       <button (click)="cardRef.close();messageRef.close()">Close</button>
-
       <hr>
 
+      <!-- configuration options -->
       Choose panel type:
       <select (change)="onPanelTypeSelect($event.target.value)">
         <option *ngFor="let type of panelTypes" [value]="type.id">{{type.name}}</option>
@@ -25,31 +26,25 @@
         <option *ngFor="let type of navTypes" [value]="type.id">{{type.name}}</option>
       </select>
 
+      <!-- example of panel with navigation, tabs and internal components-->
       <panel [type]="selectedPanelType.name">
         <h4 ngProjectAs="panel-header">
           <panel-close></panel-close>
-          Cards components
-          <small>({{list.length}} types)</small>
+          Cards components <small>({{list.length}} types)</small>
         </h4>
 
         <panel-nav [type]="selectedNavType.class"></panel-nav>
-        <br>
 
         <panel-tab [title]="list[0]">
           <panel-close></panel-close>
           Basic card component:
-          <basic-card #cardRef
-                      [(open)]="open"
-                      [text]="message">
-          </basic-card>
+          <basic-card #cardRef [(open)]="open" [text]="message"> </basic-card>
         </panel-tab>
 
         <panel-tab [title]="list[1]">
           <panel-close></panel-close>
           Message card component:
-          <message-card #messageRef
-                        [(open)]="openMessage"
-                        [text]="message">
+          <message-card #messageRef [(open)]="openMessage" [text]="message">
           </message-card>
         </panel-tab>
 
@@ -65,8 +60,7 @@
         <div ngProjectAs="panel-footer">Panel footer</div>
       </panel>
 
-      <hr>
-
+      <!-- example of simple panel -->
       <panel>
         <h5 ngProjectAs="panel-header">
           Messages
